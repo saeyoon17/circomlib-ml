@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --max-old-space-size=4000"
+    "test": "npx mocha --max-old-space-size=4000"
   },
   "keywords": [
     "machine learning",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@types/node": "^18.11.9",
     "blake-hash": "^2.0.0",
-    "chai": "^4.3.4",
+    "chai": "^4.3.8",
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlib-matrix": "^1.0.2",

@@ -1,7 +1,7 @@
 pragma circom 2.0.0;
 
 // sum of all elements in a matrix
-template matElemSum (B,m,n) {
+template batched_matElemSum (B,m,n) {
     signal input a[B][m][n];
     signal output out;
 
