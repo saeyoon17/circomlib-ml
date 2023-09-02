@@ -45,3 +45,5 @@ template sqrtCal () {
     }
     out <== mid1[try];
 }
+
+component main = sqrtCal();
