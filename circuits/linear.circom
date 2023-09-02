@@ -1,6 +1,6 @@
 pragma circom 2.0.0;
 
-include "./MultiMul2.circom";
+include "./multiMul2.circom";
 
 // matrix multiplication
 template linear(B, N, d, d2) {
