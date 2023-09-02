@@ -26,17 +26,17 @@ template SingleheadAttn(B, N, d) {
 
     component matMulComp;
     matMulComp = linear(B, N, d, d); // q랑 sq 곱하기
-    matMulComp.a <== q; matMulComp.b <== sq; matMulComp.c = bq;
+    matMulComp.a <== q; matMulComp.b <== sq; matMulComp.c <== bq;
     qq <== matMulComp.out;
 
     component matMulComp2;
     matMulComp2 = linear(B, N, d, d); // k랑 sk 곱하기
-    matMulComp2.a <== k; matMulComp2.b <== sk; matMulComp2.c = bk;
+    matMulComp2.a <== k; matMulComp2.b <== sk; matMulComp2.c <== bk;
     kk <== matMulComp2.out;
 
     component matMulComp3;
     matMulComp3 = linear(B, N, d, d); // v랑 sv 곱하기
-    matMulComp3.a <== v; matMulComp3.b <== sv; matMulComp3.c = bv;
+    matMulComp3.a <== v; matMulComp3.b <== sv; matMulComp3.c <== bv;
     vv <== matMulComp3.out;
 
     component matTrans;
