@@ -1,6 +1,6 @@
 pragma circom 2.0.0;
 
-template 3d_EmbeddingLookup (N, d, B, m) {
+template EmbeddingLookup3d (N, d, B, m) {
     signal input a[N][d];
     signal input b[B][m];
     signal output out[B][m][d];
