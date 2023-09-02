@@ -3,21 +3,21 @@ pragma circom 2.0.0;
 include "./circomlib-matrix/.circom";
 
 // matrix multiplication
-template linear(B, n, d) {
-    signal input a[B][n][d];
-    signal input b[B][n][p];
-    signal input c[p];
-    signal tmp[B][m][p];
-    signal output out[B][m][p];
+template linear(B, N, d) {
+    signal input a[B][N][d];
+    signal input b[d][d];
+    signal input c[d];
+    signal tmp[B][N][d];
+    signal output out[B][N][d];
     
     component matMulComp;
-    matMulComp = multiMul(B, N, d); // qq랑 kt 곱하기
+    matMulComp = multiMul(B, N, d);
     matMulComp.a <== a; matMulComp.b <== b;
     tmp <== matMulComp.out;
     
     for (var i=0; i<B; i++) {
-        for (var i_=0; i_<n; i_++) {
-            for (var i__=0; i__<p; i__++) {
+        for (var i_=0; i_<N; i_++) {
+            for (var i__=0; i__<d; i__++) {
                 out[i][i_][i__] <== tmp[i][i_][i__] + c[i__];
             }
         }
