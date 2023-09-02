@@ -28,23 +28,27 @@ template SingleheadAttn(B, N, d) {
     matMulComp.a <== q; matMulComp.b <== sq; matMulComp.c = bq;
     qq <== matMulComp.out;
 
-    matMulComp = linear(B, N, d, d); // k랑 sk 곱하기
-    matMulComp.a <== k; matMulComp.b <== sk; matMulComp.c = bk;
-    kk <== matMulComp.out;
+    component matMulComp2;
+    matMulComp2 = linear(B, N, d, d); // k랑 sk 곱하기
+    matMulComp2.a <== k; matMulComp2.b <== sk; matMulComp2.c = bk;
+    kk <== matMulComp2.out;
 
-    matMulComp = linear(B, N, d, d); // v랑 sv 곱하기
-    matMulComp.a <== v; matMulComp.b <== sv; matMulComp.c = bv;
-    vv <== matMulComp.out;
+    component matMulComp3;
+    matMulComp3 = linear(B, N, d, d); // v랑 sv 곱하기
+    matMulComp3.a <== v; matMulComp3.b <== sv; matMulComp3.c = bv;
+    vv <== matMulComp3.out;
 
     component matTrans;
     matTrans = transpose(B, N, d); // k 전치행렬 구하기
     matTrans.a <== k; kt <== matTrans.out;
 
-    matMulComp = matMul3d(B, N, d, N); // qq랑 kt 곱하기
-    matMulComp.a <== qq; matMulComp.b <== kt;
-    aw <== matMulComp.out;
+    component matMulComp4;
+    matMulComp4 = matMul3d(B, N, d, N); // qq랑 kt 곱하기
+    matMulComp4.a <== qq; matMulComp4.b <== kt;
+    aw <== matMulComp4.out;
 
-    matMulComp = matMul3d(B, N, N, d); // aw랑 v 곱하기
-    matMulComp.a <== aw; matMulComp.b <== v;
-    out <== matMulComp.out;
+    component matMulComp5;
+    matMulComp5 = matMul3d(B, N, N, d); // aw랑 v 곱하기
+    matMulComp5.a <== aw; matMulComp5.b <== v;
+    out <== matMulComp5.out;
 }
