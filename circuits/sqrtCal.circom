@@ -40,7 +40,7 @@ template sqrtCal () {
             s[try + 1] = mid1[try];
             e[try + 1] = e[try];
         }
-        if (s + 1 == e) break;
+        if (s[try] + 1 == e[try]) break;
         try = try + 1;
     }
     out <== mid1[try];
