@@ -3,6 +3,7 @@ pragma circom 2.0.0;
 include "./3d_matMul.circom";
 include "./multiMul.circom"
 include "./transpose.circom"
+include "./linear.circom"
 
 template SingleheadAttn(B, N, d) {
     signal input q[B][N][d];
