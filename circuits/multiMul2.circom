@@ -3,7 +3,7 @@ pragma circom 2.0.0;
 include "./circomlib-matrix/matMul.circom";
 
 // matrix multiplication
-template multiMul (B, N, d, d2) {
+template multiMul2 (B, N, d, d2) {
     signal input a[B][N][d];
     signal input b[d][d2];
     signal output out[B][N][d2];
