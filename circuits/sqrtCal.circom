@@ -5,8 +5,8 @@ template sqrtCal () {
     signal output out;
 
     var try; try = 0;
-    signal s[100]; s[0] <== in;
-    signal e[100]; e[0] <== out;
+    signal s[100]; s[0] <== 0;
+    signal e[100]; e[0] <== in;
     signal sum11[100]; signal sum12[100]; signal mid1[100];
     signal sum21[100]; signal sum22[100]; signal mid2[100];
     signal power1[100]; signal power2[100];
