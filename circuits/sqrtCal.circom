@@ -1,51 +1,47 @@
-/*
- * This file is a part of ABDK Base CIRCOM Library.
- * Copyright © 2019 by ABDK Consulting (https://abdk.consulting/).
- * Author: Mikhail Vladimirov <mikhail.vladimirov@gmail.com>
- */
+pragma circom 2.0.0;
 
-/**
- * Calculate square root of given field element.
- *
- * @input x field element to calculate square root of
- * @output result square root of x
- */
-template FieldSqrt () {
-  signal input x;
-  signal output result;
+template sqrtCal () {
+    signal input in;
+    signal output out;
 
-  if (x == 0 || x != 0) { // Prevent calculation at compile time
-    var q = -1;
-    var s = 0;
+    var try; try = 0;
+    signal s[100]; s[0] <== in;
+    signal e[100]; e[0] <== out;
+    signal sum11[100]; signal sum12[100]; signal mid1[100];
+    signal sum21[100]; signal sum22[100]; signal mid2[100];
+    signal power1[100]; signal power2[100];
+    signal minus1[100]; signal minus2[100];
+    signal diff1[100]; signal diff2[100];
 
-    while (q % 2 == 0) {
-      q = q >> 1;
-      s = s + 1;
+    while (s < e) {
+        sum11[try] <== 2 * s[try];
+        sum12[try] <== sum11[try] + e[try];
+        mid1[try] <== sum12[try] \ 3;
+
+        sum21[try] <== 2 * e[try];
+        sum22[try] <== sum21[try] + s[try];
+        mid2[try] <== sum22[try] \ 3;
+
+        power1[try] <== mid1[try] * mid1[try];
+        minus1[try] <== power1[try] - in;
+        if (minus1[try] < 0) diff1[try] = -minus1[try];
+        else diff1[try] = minus1[try];
+
+        power2[try] <== mid2[try] * mid2[try];
+        minus2[try] <== power2[try] - in;
+        if (minus2[try] < 0) diff2[try] = -minus2[try];
+        else diff2[try] = minus2[try];
+
+        if (diff1[try] < diff2[try]) {
+            s[try + 1] = s[try];
+            e[try + 1] = mid2[try];
+        }
+        else {
+            s[try + 1] = mid1[try];
+            e[try + 1] = e[try];
+        }
+        if (s + 1 == e) break;
+        try = try + 1;
     }
-
-    var z = 1;
-    while (z**(-1 / 2) == 1) z += 1;
-
-    var m = s;
-    var c = z**q;
-    var t = x**q;
-    var r = x**((q + 1) / 2);
-    var i;
-    var b;
-
-    while (t != 0 && t != 1) {
-      i = 1;
-      while (t**(1 << i) != 1) i += 1;
-
-      b = c**(2**(m - i - 1));
-      m = i;
-      c = b**2;
-      t = t * b**2;
-      r = r * b;
-    }
-
-    result <-- t == 0 ? 0 : min (r, -r);
-  }
-
-  result * result === x;
+    out <== mid1[try];
 }
